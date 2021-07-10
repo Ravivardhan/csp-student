@@ -69,6 +69,20 @@ span.psw {
   float: right;
   padding-top: 16px;
 }
+.sec_head{
+text-align: center;
+font-size: 22px;
+background: #FF7110;
+padding: 10px;
+margin: 0 auto;
+color: #FFF;
+font-family: 'Roboto Condensed', sans-serif;
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+width: 100%;
+position: relative;
+}
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
