@@ -1,31 +1,11 @@
 body{
-               background: white;
+    background: white;
 }
 h1{
 
     color: black;
     font-size: 50px;
     text-align: center;
-}
-.download{
-    padding: 20px;
-    transform: translate(0px,300px);
-    font-size: 30px;
-
-}
-.sec_head{
-text-align: center;
-font-size: 22px;
-background: #FF7110;
-padding: 10px;
-margin: 0 auto;
-color: #FFF;
-font-family: 'Roboto Condensed', sans-serif;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-width: 100%;
-position: relative;
 }
 nav{
     float: right;

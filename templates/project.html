@@ -1,89 +1,84 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
-                            <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
-
-        <style>
-            .download{
-    padding: 20px;
-    transform: translate(500px,00px);
-    font-size: 30px;
-
-}
-.marks{
-    font-size:20px;
-    margin-bottom:0px;
-}
-.marks{
-text-align:center;
-align-items:center;
-padding:17px 10px;
-border:none;
-}
-.submit{
-transform:translate(-480px,240px);
-text-align:center;
-align-items:center;
-padding:15px;
-border:none;
-}
-.sec_head{
-text-align: center;
-font-size: 22px;
-background: #FF7110;
-padding: 10px;
-margin: 0 auto;
-color: #FFF;
-font-family: 'Roboto Condensed', sans-serif;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-width: 100%;
-position: relative;
-}
-.mark{
-     padding: 20px;
-    transform: translate(0px,00px);
-    font-size: 30px;
-    margin-left:600px;
-}
-form{
-    transform:translate(590px,130px);
-}
-.remarks{
-height:170px;
-width:350px;
-transform:translate(-270px,120px);
-}
-     </style>
+         <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
         <link rel="stylesheet" href="{{url_for('static',filename='project.css')}}">
         <title>Project</title>
+                                            <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
+
     </head>
     <body>
     <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
-   SRIT-COMMUNITY SERVICE PROJECT--mentor account
+   SRIT-COMMUNITY SERVICE PROJECT--student account
 </marquee>
     <img style="margin-left:30%" class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
     <hr>
-    <button onclick="location.href = '{{url_for('home')}}'" style="text-align:right;padding:10px 20px;margin-left:20px">< Go Back</button>
+             <button class="back" onclick="location.href = '{{url_for('homepage')}}'" style="text-align:right;padding:10px 20px;margin-left:10px">< Go Back</button>
+
+    <style>input{
+
+    font-size: 20px;
+    text-align: center;
+    transform: translate(500px,200px);
+}
+button{
+    width: 200px;
+    height: 50px;
+    transform: translate(140px,400px);
+}</style>
 
 
-   <center> <h1>PROJECT SUBMITTED CLICK <a class="download" target="_blank" href="{{link}}">HERE</a> TO VIEW THE FILE!!!!</h1></center>
+
+<center >
+    <h1>SUBMIT YOUR PROJECT</h1>
+    <form style="transform:translate(-20%,50%);" method="post" style="transform:translate(-10%, 30%);" action="{{url_for('submit')}}" enctype="multipart/form-data">
+        <input type="text" id="ffname" name="ffname" class="ffname" style="display:block">
+
+        <input type="file" name="filenames" class="filenames" id="image">
+        <button type="button" id="upd" onclick="upload()">Upload</button>
+        <button type="submit" id="cont"  style="display:none" >Continue</button>
+
+    </form>
+</center>
+<script>
+window.onload = function(){
+
+    var lengthOfName = name.length
+
+
+};
+</script>
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+    // Your web app's Firebase configuration
+     firebaseConfig = {
+    apiKey: "AIzaSyD4ACVVz74KKvZBAJWEvXDSOKObD_r_Bo8",
+    authDomain: "python-firebase-4feb8.firebaseapp.com",
+    databaseURL: "https://python-firebase-4feb8-default-rtdb.firebaseio.com/",
+    projectId: "python-firebase-4feb8",
+    storageBucket: "python-firebase-4feb8.appspot.com",
+    messagingSenderId: "370096610883",
+    appId: "1:370096610883:web:4b2754541584d867563ef6",
+    measurementId: "G-QSB7FJ0ZVX"
+  }
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+</script>
+<script type="text/javascript" src="{{url_for('static',filename='uploadImage.js')}}"></script>
 
 
 
 
-<form method="post" action="{{url_for('final')}}">
-    <label >Grade:</label>
-<select style="background-color:white; color:orange" class="marks" name="marks">
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="C">C</option>
-    <option value="D">D</option>
-  </select>        <input name="remarks" class="remarks" placeholder="enter remarks here!">
-        <input class="submit" type="submit" value="Submit">
-</form>
 
 </body>
 </html>

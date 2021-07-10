@@ -76,30 +76,17 @@ th{
     color:white;
     background: rgba(5, 4, 4, 0.459);
 }
-.sec_head{
-text-align: center;
-font-size: 22px;
-background: #FF7110;
-padding: 10px;
-margin: 0 auto;
-color: #FFF;
-font-family: 'Roboto Condensed', sans-serif;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-width: 100%;
-position: relative;
-}
+
     </style>
 
 
     <body>
     <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
-   SRIT-COMMUNITY SERVICE PROJECT--mentor account
+   SRIT-COMMUNITY SERVICE PROJECT--student account
 </marquee>
     <img style="margin-left:30%" class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
     <hr>
-    <button onclick="location.href = '{{url_for('home')}}'" style="text-align:right;padding:10px 20px;margin-left:20px">< Go Back</button>
+    <button onclick="location.href = '{{url_for('homepage')}}'" style="text-align:right;padding:10px 20px;margin-left:20px">< Go Back</button>
 
 	<form method="POST" action="{{url_for('logout')}}">
     <table>

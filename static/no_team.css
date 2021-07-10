@@ -1,46 +1,103 @@
 body{
-               background: white;
+     background: white;
+    
 }
-h1,h2{
-    color: black;
+.container{
+    height: 700px;
+    display: flex;
+}
+
+.form1{
+    border-radius: 40px;
+    padding-right: 10px;
+    background: #0015ff63;
+    width: 500px;
+    height: 85vh;
+   
+    margin-top: 80px;
+    margin-left: 200px;
+}
+.form2{
+    border-radius: 40px;
+    padding-right: 10px;
+    background: #ff2cdf80;
+    width: 500px;
+    height: 85vh;
+    
+    margin-top: 80px;
+    margin-left: 200px;
+}
+.form-1 h1{
+    text-transform: uppercase;
+    text-align: center;
     font-size: 50px;
+}
+.form-2 h1{
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 50px;
+}
+
+.form-1 input,.form-2 input{
+    background-color: rgba(255, 255, 255, 0.712);
+}
+
+
+
+.form-1 button:hover{
+    background-color:#ff2cdf80; ;
+    color: white;
+    box-shadow: 5px 5px 10px black;
+}
+textarea:focus,input:focus{
+    outline: none;
+}
+
+.form-2 button:hover{
+    background-color:#0015ff79 ;
+    color: white;
+    box-shadow: 5px 5px 10px black;
+}
+.note-2,.note-1{
+    
+    margin: 0;
+    width: 450px;
+    padding-right: 10px;
+    height: 150px;
+    display: block;
+    
+    margin-left: 20px;
+
+}
+.note-2 h5{
+    font-size: 27px;
+}
+.note-2 q,.note-1 q{
+    font-size: 20px;
     text-align: center;
 }
-
-nav{
+.note-1 h5{
+    font-size: 27px;
+    margin-top: 80px;
+}
+.links {
     float: right;
-
+    list-style: none;
 }
-ul{
-
+nav{
+    margin-bottom:30px;
 }
-li{
+nav ul li{
+
+    border:2px solid black;
+    padding:10px 20px;
     display: inline-block;
-}.sec_head{
-text-align: center;
-font-size: 22px;
-background: #FF7110;
-padding: 10px;
-margin: 0 auto;
-color: #FFF;
-font-family: 'Roboto Condensed', sans-serif;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-width: 100%;
-position: relative;
 }
-a{
-    background-color: rgba(255, 255, 255, 0.199);
-    padding: 25px 40px;
+nav ul li a{
+    padding: 20px 50px;
     margin-left: 20px;
+    color: black;
     text-decoration: none;
-    color: black;
-    font-size: 20px;
     transition: .5s;
-}
-a:hover{
-    background: white;
-    font-weight: 200;
-    color: black;
+    font-size: 20px;
 }

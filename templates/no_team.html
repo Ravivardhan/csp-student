@@ -1,36 +1,85 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="{{url_for('static',filename='no_team.css')}}">
-        <title>Project</title>
-                                                                    <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
-<style>
-    .sec_head{
-text-align: center;
-font-size: 22px;
-background: #FF7110;
-padding: 10px;
-margin: 0 auto;
-color: #FFF;
-font-family: 'Roboto Condensed', sans-serif;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-width: 100%;
-position: relative;
+    <style>
+
+form button{
+    transition: .5s;
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 30px 200px;
+    border-radius: 25px;
+    border: none;
+    margin-top: 20px;
+    margin-bottom:0px;
+    margin-left: 10px;
 }
-</style>
+        .teamname,.passcode{
+    width: 70%;
+    margin-left: 60px;
+    height: 60px;
+    border-radius: 25px;
+    border:3px solid rgba(0, 0, 0, 0.438);
+    text-align: center;
+    font-size: 20px;
+
+}
+    </style>
+    <head>
+                            <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
+
+        <title>team</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='no_team.css')}}">
+        
     </head>
     <body>
-      <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
-   SRIT-COMMUNITY SERVICE PROJECT--mentor no team
+    <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
+   SRIT-COMMUNITY SERVICE PROJECT--student account
 </marquee>
     <img style="margin-left:30%" class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
     <hr>
-             <button class="back" onclick="location.href = '{{url_for('home')}}'" style="text-align:right;padding:10px 20px;margin-left:10px">< Go Back</button>
+        <nav>
+         <ul class="links">
+             
+             <li><a href="{{url_for('homepage')}}" style="font-size: 20px;" class="previous round">&#8249;Home</a></li>
+             <li><a href="{{url_for('team_view')}}">Team</a></li>
+             <li><a href="{{url_for('project')}}">Project</a></li>
+             <li><a href="{{url_for('account')}} ">Account</a></li>
 
-   <h1>YOU DIDN'T SELECTED A TEAM YET!!!!</h1>
 
+         </ul>   
+     </nav>
+        <div class="container">
+            <div class="form1">
+                <form class="form-1" method="POST" action="{{url_for('join_team')}}">
+                   <h1>Join a team</h1>
+                   <input type="text" placeholder="enter your team name" name="teamname" class="passcode">
+                   <input type="text" style="margin-top: 20px;" placeholder="enter your team passcode" name="teamcode" class="passcode">
 
-</body>
+                    <button class="join" type="submit">Join Team</button>
+                    <p> <h2  style="margin-left:10px">note:</h2>
+                       <q margin-bottom:20px; style="margin-left:20px">
+                            Once you join a team you cannot join another team...<br>   &nbsp &nbsp it will be permenantly stored as you are in the team...
+
+                        </q></p>
+
+                </form>
+            </div>
+            <div class="form2">
+                <form class="form-2" method="post" action="{{url_for('team')}}">
+                    <h1>Create a Team</h1>
+                    <input type="text" name="teamname" placeholder="enter your team name here" class="passcode">
+                    <input type="text" name="teamcode" style="margin-top: 20px;" placeholder="enter your team passcode here" class="passcode">
+                    <input type="text" style="margin-top: 20px;" placeholder="enter your team project name" name="project" class="passcode">
+                    <button class="join" type="submit">Create Team</button>
+                    <p > <h2  style="margin-left:10px">note:</h2>
+                       <q style="margin-left:20px;">
+                            Once you create a team you cannot join another team...<br>   &nbsp &nbsp it will be permenantly stored as you are in the team...
+
+                        </q></p>
+
+                </form>
+            </div>
+        </div>
+    </body>
 </html>

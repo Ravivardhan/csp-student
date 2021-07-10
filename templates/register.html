@@ -5,29 +5,16 @@
 
 
         <link rel="stylesheet" href="{{url_for('static',filename='log.css')}}">
-        <title>Register form</title>
+        <title>login form</title>
             <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
-<style>.sec_head{
-text-align: center;
-font-size: 22px;
-background: #FF7110;
-padding: 10px;
-margin: 0 auto;
-color: #FFF;
-font-family: 'Roboto Condensed', sans-serif;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-width: 100%;
-position: relative;
-}</style>
+
     </head>
 
 <body>
 
 
         <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
-   SRIT-COMMUNITY SERVICE PROJECT--mentor register
+   SRIT-COMMUNITY SERVICE PROJECT--student register
 </marquee>
     <img style="margin-left:30%" class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
     <hr>
@@ -65,9 +52,24 @@ position: relative;
     <input type="password" placeholder="Enter Password" name="password" class="password" required>
           <label for="psw"><b>Confirm Password</b></label>
 
-      <input id='confirm_password' name="confirm_password" placeholder="confirm_password" type="password" class="inputt" required>
+      <input id='confirm_password' name="confirm_password" placeholder="confirm password" type="password" class="inputt" required>
+
+                <label for="psw"><b>Roll No</b></label>
+
+                              <input type="text" id='roll_no' placeholder="enter your Roll No" name="roll_no"  class="inputt" required>
 
 
+                        <label class="lbl" for="inputt">Branch</label>
+
+                                    <label style="color:black;font-size:100%;">Select Your Branch</label>
+                                  <select style="width:10%;height:10%;" name="student-year" id="student-year" class="student-year">
+
+                                  <option value="CSE">CSE</option>
+                                  <option value="ECE">ECE</option>
+                                  <option value="EEE">EEE</option>
+                                  <option value="CIVIL">CIVIL</option>
+                                    <option value="MECH">MECH</option>
+                                </select>
                         <button class="sub" type="submit">Register</button>
 
   </div>

@@ -1,88 +1,84 @@
-body{
-    background-image: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('co_ordinator_register.jpg');
-    background-size: cover;
-    background-position-y: -150px;
+form {
+  border: 3px solid #f1f1f1;
+  height:30%;
+  width:50%;
+  transform:translate(50%,20%);
 }
-.input{
-    position: relative;
+hr{
+            border-top: 2px solid #8c8b8b;}
+.top{
+
+    background: #FF7110 !important;
+    border-bottom: 1px solid #000;
+}
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+label{
+    color:white;
 }
 
-.reg_form{
-    
-    align-items: center;
-    justify-content: center;
-    padding-left: 900px;
-    display: flex;
-    font-size: 50px;
-    border: none;   
-}
-.sec_head{
-text-align: center;
-font-size: 22px;
-background: #FF7110;
-padding: 10px;
-margin: 0 auto;
-color: #FFF;
-font-family: 'Roboto Condensed', sans-serif;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-width: 100%;
-position: relative;
+/* Set a style for all buttons */
+
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
 }
 
-.inputt,.username{
-    text-align: center;
-    font-size: large;
-    border: none;
-    border-collapse: inherit;
-    background: rgba(255, 255, 255, 0.308);
-    border-bottom:0.5px solid white;
-    border-radius: 50px;
-    width: 100%;
-    height:50px;
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
 }
 
-.submit{
-    margin-top: 20px;
-    font-size: 20px;
-    padding-top:20px;
-    padding-bottom: 20px;
-    width: 75%;
-    border-radius: 50px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.664);
-    transition: .25s;
-    text-transform: uppercase;
+/* Center the avatar image inside this container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
 }
-.submit:hover{
-    background-color: white;
-    box-shadow: 1px 1px 10px white;
-    
+
+/* Avatar image */
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
 }
-.input .lbl{
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    transition: .5s;
-    padding: 13px 0;
-    margin-left: 200px;
-    font-size: 30px;
-    margin-top: 6px;
-    
-}
-.input{
-    margin-top: 0px;
-}
-.inputt:focus ~ label,
-.inputt:valid ~ label{
-    top: -18px;
-    left: -150px;
+.reg {
+    background-color: orange;
     color: white;
-    font-size: 29px;
-    font-weight: 1000;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 }
-textarea:focus,.inputt:focus{
-    outline: none;
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
 }

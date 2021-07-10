@@ -1,18 +1,16 @@
-from flask import Flask,render_template,request,redirect,url_for,session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-import re
-import random
-import os
-import pyrebase
-app=Flask(__name__)
 
+app=Flask(__name__)
+app.secret_key='success'
+import pyrebase
 app.secret_key='success'
 app.config['MYSQL_HOST']='185.28.21.1'
-app.config['MYSQL_USER']='u320202036_mentor'
+app.config['MYSQL_USER']='u320202036_student'
 app.config['MYSQL_PORT']=3306
 app.config['MYSQL_PASSWORD']='Conzura9346@'
-app.config['MYSQL_DB']='u320202036_mentor'
+app.config['MYSQL_DB']='u320202036_student'
 mysql=MySQL(app)
 firebaseConfig = {
     'apiKey': "AIzaSyD4ACVVz74KKvZBAJWEvXDSOKObD_r_Bo8",
@@ -29,350 +27,369 @@ firebase=pyrebase.initialize_app(firebaseConfig)
 storage=firebase.storage()
 
 
-
 @app.route('/')
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    session.pop('username', None)
-    session.pop('loggedin', None)
-    session.pop('mentor_team',None)
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("select * from accounts where username='{}' and password='{}'".format(username, password))
-        account = cursor.fetchone()
-        if account:
-            session['loggedin'] = True
-            session['username'] = request.form['username']
-            cursor.execute("select teamname from accounts where username='{}'".format(session['username']))
-            teamname=cursor.fetchone()
-            for i in teamname:
-                session['teamname']=i
-                return render_template('home.html')
-        else:
-            msg = 'incorrect username or password'
-
-    return render_template('log.html', msg=msg)
-
-
-@app.route('/register', methods=['POST', 'GET'])
-def register():
-    session.pop('username', None)
-    session.pop('loggedin', None)
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'email' in request.form and 'password' in request.form and 'confirm_password' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        conf_psd = request.form['confirm_password']
-        email = request.form['email']
-        
-        if password == conf_psd:
-            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute("select * from accounts where username='{}' and password='{}'".format(username, password))
-            account = cursor.fetchone()
-            if account:
-                msg = "username already exists"
-                return render_template('register.html', msg1=msg)
-            cursor.execute("select * from accounts where email='{}'".format(email))
-            mail = cursor.fetchone()
-            if mail:
-                msg = "email already taken"
-                render_template('register.html', msg1=msg)
-
-            if email.split('@')[1] != "srit.ac.in":
-                msg="invalid email address"
-                return render_template("register.html",msg1=msg)
-            else:
-
-
-                cursor.execute(
-                    "insert into accounts(username,password,email) values('{}','{}','{}')".format(username, password,
-                                                                                                  email))
-                mysql.connection.commit()
-                session['username'] = request.form['username']
-                return render_template('home.html')
-
-        if request.method == 'POST' and (request.form['password'] != request.form['confirm_password']):
-
-                msg = "password didn't match"
-                render_template('register.html', msg1=msg)
-    return render_template('register.html')
-@app.route('/home')
-def home():
-    return render_template('home.html')
-
-
-
-@app.route('/home/team_verify')
-def team_verify():
-    database = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
-
-    cursor = database.cursor()
-    cursor.execute("select project from accounts where username='{}'".format(session['username']))
-    p = cursor.fetchone()
-    cursor.execute("select teamname from accounts where username='{}'".format(session['username']))
-    table=cursor.fetchone()
-    for i in p:
-        if i != None:
-            for i in table:
-                database =MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
-                cursor = database.cursor()
-                cursor.execute("select team_members,roll_no,branch from {}".format(i))
-                data=cursor.fetchall()
-                cursor.execute("select project from team_manage where teamname='{}'".format(i))
-                project=cursor.fetchone()
-                for i in project:
-                    return render_template('mentor_team.html',table=data,project=i)
-        else:
-            return team()
-@app.route('/home/project')
-def project():
-    database =MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
-
-    cursor = database.cursor()
-    cursor.execute("select teamname from accounts where username='{}'".format(session['username']))
-    team=cursor.fetchone()
-    if team[0]!=None:
-
-
-        database = MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
-        cursor = database.cursor()
-        cursor.execute("select proj_sub from team_manage where mentor='{}'".format(session['username']))
-        submission=cursor.fetchone()
-        db = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
-
-        c = db.cursor()
-        c.execute("select teamname from accounts where username='{}'".format(session['username']))
-        teamname=c.fetchone()
-        print(submission)
-        print(teamname)
-        c.execute("select download from project_files where teamname='{}'".format(teamname[0]))
-        downloaded = c.fetchone()
-        database.commit()
-        print(downloaded)
-        if downloaded ==None:
-            return render_template('index.html')
-        if downloaded[0] == 'yes':
-            conn = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@",
-                                   database="u320202036_mentor", port=3306)
-
-            cur = conn.cursor()
-
-            # cur.execute("update project_files set download='yes' where teamname='{}'".format(i))
-            cur.execute("select id from project_files where teamname='{}'".format(team[0]))
-            id = cur.fetchone()
-
-            for i in id:
-                cur.execute("select file_name from project_files where id='{}'".format(i))
-                filename = cur.fetchone()
-                conn.commit()
-
-                for i in filename:
-                    print(str(i)[1:])
-
-                    url = storage.child('images').child(str(i)[:]).get_url(None)
-                    print(url)
-            return render_template('completed.html',link=url)
-
-        elif submission[0]=='yes':
-
-            print(storage.child(teamname[0]).get_url(None))
-
-            conn =MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
-
-
-            cur = conn.cursor()
-            cur.execute("select teamname from accounts where username='{}'".format(session['username']))
-            teamname = cur.fetchone()
-            for i in teamname:
-                teamn=i
-                # cur.execute("update project_files set download='yes' where teamname='{}'".format(i))
-                cur.execute("select id from project_files where teamname='{}'".format(i))
-                id = cur.fetchone()
-
-                for i in id:
-                    cur.execute("select file_name from project_files where id='{}'".format(i))
-                    filename = cur.fetchone()
-                    conn.commit()
-
-                    for i in filename:
-                        print(str(i)[1:])
-
-                        url = storage.child('images').child(str(i)[:]).get_url(None)
-                        print(url)
-                        conn4 = MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@",
-                                               database="u320202036_student", port=3306)
-                        cu=conn4.cursor()
-                        cu.execute("update team_manage set link='{}' where teamname='{}'".format(url,teamn))
-                        conn4.commit()
-
-            return render_template('project.html',link=url)
-    if team[0]==None:
-        return render_template('no_team.html')
-
-
-
-
-@app.route('/home/project/final',methods=['POST','GET'])
-def final():
-    remarks=request.form['remarks']
-    marks=request.form['marks']
-    if remarks!=None and marks!=None:
-        conn = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
-
-        cur = conn.cursor()
-        cur.execute("select teamname from accounts where username='{}'".format(session['username']))
-        teamname=cur.fetchone()
-
-        cur.execute("update  project_files set marks='{}' where teamname='{}'".format(marks,teamname[0]))
-        cur.execute("update  project_files set remarks='{}' where teamname='{}'".format(remarks, teamname[0]))
-        cur.execute("update project_files set download='yes' where teamname='{}'".format(teamname[0]))
-        conn.commit()
-        conn = MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
-        cursor=conn.cursor()
-        cursor.execute("update team_manage set marks='{}'  where mentor='{}'".format(marks,session['username']) )
-        conn.commit()
-
-        for i in teamname:
-            teamn = i
-            # cur.execute("update project_files set download='yes' where teamname='{}'".format(i))
-            cur.execute("select id from project_files where teamname='{}'".format(i))
-            id = cur.fetchone()
-
-            for i in id:
-                cur.execute("select file_name from project_files where id='{}'".format(i))
-                filename = cur.fetchone()
-                conn.commit()
-
-                for i in filename:
-                    print(str(i)[1:])
-
-                    url = storage.child('images').child(str(i)[:]).get_url(None)
-                    print(url)
-        return render_template('completed.html',link=url)
-
-
-
-
-
-
-@app.route('/home/project/download',methods=['POST','GET'])
-def download():
+@app.route('/year',methods=['POST',"GET"])
+def year():
+    global student_year
     if request.method=='POST':
-        #####################import MySQLdb
+        session['year']=request.form['student-year']
 
-        def write_file(data, filename):
-            # Convert binary data to proper format and write it on Hard Disk
-            with open(filename, 'wb') as file:
-                file.write(data)
 
-        def readBLOB(emp_id, photo):
-            print("Reading BLOB data from python_employee table")
+        return render_template('log.html')
+    return render_template('year.html')
 
+@app.route('/login',methods=['GET','POST'])
+def login():
+
+    session.pop('username',None)
+    session.pop('loggedin',None)
+    msg=''
+    if request.method=='POST' and 'username' in request.form and 'password' in request.form:
+        username=request.form['username']
+        password=request.form['password']
+        cursor= mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("select * from accounts where username='{}' and password='{}'".format(username,password))
+
+        account=cursor.fetchone()
+        if account:
+            session['loggedin']=True
+            session['username']=request.form['username']
+            cursor.execute("select teamname from accounts where username='{}'".format(session['username']))
+            teamname = cursor.fetchone()
+            for i in teamname:
+                session['teamname'] = i
+            cursor.execute("select year from accounts where username='{}'".format(session['username']))
+            y=cursor.fetchone()
+            print(y['year'])
+            if int(y['year'])==int(session['year']):
+
+
+                    return render_template('homepage.html')
+            else:
+                flash(u'Incorrect Year provided...', 'error')
+
+        else:
+            msg='incorrect username or password'
+            flash(u'Invalid password provided', 'error')
+
+    return render_template('log.html',msg=msg)
+@app.route('/register',methods=['POST','GET'])
+def register():
+    session.pop('username',None)
+    session.pop('loggedin',None)
+    msg=''
+    if request.method=='POST' and 'username' in request.form and 'email' in request.form and 'password' in request.form and 'confirm_password' in request.form  :
+        username=request.form['username']
+        password=request.form['password']
+        conf_psd=request.form['confirm_password']
+        email=request.form['email']
+        branch=request.form['student-year']
+        roll_no=request.form['roll_no']
+        if roll_no!=None and branch!=None:
+                if password==conf_psd:
+                    cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                    cursor.execute("select * from accounts where username='{}' and password='{}'".format(username,password))
+                    account=cursor.fetchone()
+                    if account:
+                        msg="username already exists"
+                        flash(u'username already exists', 'error')
+
+                        return render_template('register.html',msg=msg)
+                    cursor.execute("select * from accounts where email='{}'".format(email))
+                    mail=cursor.fetchone()
+                    if mail:
+                        msg="email already taken"
+                        flash(u'email already taken', 'error')
+
+                        render_template('register.html',msg=msg)
+                    if request.method == 'POST' and (request.form['password'] != request.form['confirm_password']):
+
+                        msg = "password didn't match"
+                        flash(u'password didnt match', 'error')
+
+                        render_template('register.html',msg=msg)
+
+
+                    else:
+                        if email.split('@')[1] == "srit.ac.in":
+                            cursor.execute(
+                                "insert into accounts(username,password,email,year,branch,roll_no) values('{}','{}','{}', '{}','{}','{}')".format(
+                                    username, password, email, session['year'], branch, roll_no))
+                            mysql.connection.commit()
+                            session['username'] = request.form['username']
+                            session['loggedin'] = True
+
+                            return render_template('homepage.html')
+                        else:
+                            return render_template("register.html",msg="not a valid email")
+
+
+        
+    return  render_template('register.html',msg=msg)
+@app.route('/homepage')
+def homepage():
+    return render_template('homepage.html')
+@app.route('/homepage/team_view')
+def team_view():
+    database =MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
+    c = database.cursor()
+
+
+    c.execute("select team from accounts where username='{}'".format(session['username']))
+
+    data = c.fetchone()
+    for i in data:
+
+        if i == 'yes':
+            t = database.cursor()
+            t.execute("select teamname from accounts where username='{}'".format(session['username']))
+            team_name=t.fetchone()
+
+            for i in team_name:
+                session['teamname']=i
+                t.execute("select project from team_manage where teamname='{}'".format(i))
+                project=t.fetchone()
+
+                t.execute("select teamcode from team_manage where teamname='{}'".format(i))
+                teamcode=t.fetchone()
+
+                t.execute("select team_members,roll_no,branch from {}".format(i))
+                data = t.fetchall()
+
+
+            return render_template('team_table.html',table=data,project=project,teamcode=teamcode)
+
+    return render_template('no_team.html')
+
+@app.route('/homepage/submit',methods=['POST','GET'])
+def submit():
+    if request.method=='POST':
+        database = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
+        c=database.cursor()
+        file1=request.form['ffname']
+
+
+
+
+
+
+
+
+
+
+
+
+        def insertBLOB( name, photo):
+            print("Inserting BLOB into project_files table")
             try:
-                connection =MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
 
 
+
+
+                connection = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
                 cursor = connection.cursor()
-                sql_fetch_blob_query = 'SELECT * from project_files where id = %s'
+                sql_insert_blob_query = """ INSERT INTO project_files
+                                  ( name, file,teamname,file_name) VALUES (%s,%s,%s,%s)"""
+                conn =MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
+                cur=conn.cursor()
 
-                cursor.execute(sql_fetch_blob_query, (emp_id,))
-                record = cursor.fetchall()
-                for row in record:
-                    print("Id = ", row[0], )
-                    print("Name = ", row[1])
-                    image = row[2]
-                    file = row[3]
+                cur.execute("select teamname from accounts where username='{}'".format(session['username']))
+                team_name=cur.fetchone()
 
-                    write_file(image, photo)
+                for tt in team_name:
 
+                    #empPicture = convertToBinaryData(photo)
+                    # file = convertToBinaryData(biodataFile)
 
-                return render_template('downloaded.html')
+                    # Convert data into tuple format
+                    insert_blob_tuple = (name, photo,tt,photo)
+                    result = cursor.execute(sql_insert_blob_query, insert_blob_tuple)
+                    connection.commit()
+                    print("Image and file inserted successfully as a BLOB into python_employee table", result)
+#######################################################################
+                    cursor5 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+                    conn = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@",
+                                           database="u320202036_mentor", port=3306)
+
+                    cur = conn.cursor()
+
+                    # cur.execute("update project_files set download='yes' where teamname='{}'".format(i))
+                    cur.execute("select id from project_files where teamname='{}'".format(tt))
+                    id = cur.fetchone()
+
+                    for i in id:
+                        cur.execute("select file_name from project_files where id='{}'".format(i))
+                        filename = cur.fetchone()
+                        conn.commit()
+
+                        for i in filename:
+                            print(str(i)[1:])
+
+                            url = storage.child('images').child(str(i)[:]).get_url(None)
+                            print(url)
+                    return render_template('proj_already.html', link=url)
 
             except ArithmeticError as error:
-                print("Failed to read BLOB data from MySQL table {}".format(error))
+                print("Failed inserting BLOB data into MySQL table {}".format(error))
 
-        conn = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
+        insertBLOB( session['username'], file1)
 
-
-        cur = conn.cursor()
-        cur.execute("select teamname from accounts where username='{}'".format(session['username']))
-        teamname=cur.fetchone()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("select teamname from accounts where username='{}'".format(session['username']))
+        teamname=cursor.fetchone()
         for i in teamname:
-            teamn=i
-            #cur.execute("update project_files set download='yes' where teamname='{}'".format(i))
-            cur.execute("select id from project_files where teamname='{}'".format(i))
-            id=cur.fetchone()
 
-            for i in id:
-                cur.execute("select file_name from project_files where id='{}'".format(i))
-                filename=cur.fetchone()
-                conn.commit()
-                for name in filename:
-
-                    url=storage.child("images/{}".format(name)).get_url()
-                    print(url)
-                    readBLOB(i, 'project_files/{}'.format(name))
-                    os.path.abspath('project_files/{}'.format(name))
+            cursor.execute("update team_manage set proj_sub='yes' where teamname={}".format(i))
 
 
-    return render_template('downloaded.html')
 
-@app.route('/home/team')
+
+
+            mysql.connection.commit()
+
+            return render_template('proj_already.html')
+
+    return render_template('suzz.html',msg="cant submit details")
+#####################################################################################################################
+@app.route('/homepage/team_view/team',methods=['POST','GET'])
 def team():
-    database = MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
-    cursor = database.cursor()
-    cursor.execute("select teamname,project from team_manage where mentor ='None'")
-    data=cursor.fetchall()
-    database.commit()
-    cursor.execute("select teamname from team_manage where mentor='None'")
-    teams=cursor.fetchall()
-    return render_template('team.html',data=data,teams=teams)
-@app.route('/home/team/mentor_team',methods=['GET','POST'])
-def mentor_team():
-            team=request.form['selection']
 
 
-            session['mentor_team']=team
-            database = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
+    if request.method=='POST' and  'teamname' in request.form and 'teamcode' in request.form and 'project' in request.form:
+        name = session['username']
+        teamname=request.form['teamname']
+        teamname=str(teamname).replace(" ","")
+        teamcode=request.form['teamcode']
+        project=request.form['project']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("select roll_no from accounts where username='{}'".format(session['username']))
+        r=cursor.fetchone()
+        cursor.execute("select branch from accounts where username='{}'".format(session['username']))
+        b=cursor.fetchone()
+        cursor.execute("create table {}(team_members varchar(30),project varchar(50),roll_no varchar(50),branch varchar(50))".format(teamname))
+        cursor.execute("insert into {}(team_members,project,roll_no,branch) values('{}','{}','{}','{}')".format(teamname,session['username'],project,r['roll_no'],b['branch']))
 
-            cursor = database.cursor()
-            cursor.execute("update accounts set teamname='{}' where username='{}'".format(team,session['username']))
+        cursor.execute("update accounts set teamname='{}' where username='{}';".format(teamname,session['username']))
+        cursor.execute("update accounts set team='yes' where username='{}'".format(session['username']))
+        cursor.execute("insert into team_manage(teamname,project,teamcode,mentor) values('{}','{}','{}','None')".format(teamname,project,teamcode))
+        mysql.connection.commit()
+        session['teamname']=teamname
+        return render_template('team_table.html')
 
-            db =MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
-            cursor2 = db.cursor()
-            cursor2.execute("update team_manage set mentor='{}' where teamname='{}'".format(session['username'],session['mentor_team']))
-            cursor2.execute("select project from team_manage where teamname='{}'".format(session['mentor_team']))
-            project=cursor2.fetchone()
-            db.commit()
-            for i in project:
-                cursor.execute("update accounts set project='{}' where username='{}'".format(i,session['username']))
-                database.commit()
-                return render_template('index.html',project=i)
-@app.route('/home/project/marks',methods=['POST','GET'])
-def marks():
+    else:
+        return render_template('no_team.html')
+@app.route('/homepage/project')
+def project():
+    database =MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
+    c = database.cursor()
+    c.execute("select teamname from accounts where username='{}'".format(session['username']))
+    d=c.fetchone()
+
+    for i in d:
+        if i != None:
+            c.execute("select mentor from team_manage where teamname='{}'".format(i))
+            mentor = c.fetchone()
+            for i in mentor:
+                if i == 'None':
+                    return render_template('no_mentor.html')
+
+
+    for t in d:
+        if t!=None:
+            c.execute("select marks from team_manage where teamname='{}'".format(t))
+            marks=c.fetchone()
+            print(marks)
+            for mark in marks:
+                if mark!=None:
+                    db = MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
+                    cur = db.cursor()
+                    cur.execute("select mentor from team_manage where teamname='{}'".format(t))
+                    mentor=cur.fetchone()
+                    dba = MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
+                    cura = dba.cursor()
+                    print(t)
+                    cura.execute("select remarks from project_files where teamname='{}'".format(t))
+                    global remarks
+                    remarks=cura.fetchone()
+                    print(remarks)
+                    for men in mentor:
+                        return render_template("marks.html",marks=mark,mentor=men,link=remarks)
+                if mark==None:
+                    c.execute("select proj_sub from team_manage where teamname='{}'".format(t))
+                    proj_sub = c.fetchone()
+                    for i in proj_sub:
+                        if i != None:
+                            return render_template('proj_already.html')
+                        if i == None:
+                            return render_template('project.html')
+                    return render_template("proj_already.html")
+
+
+
+        #
+    return render_template("index.html",username=session['username'])
+
+@app.route('/remarks_mentor',methods=['POST','GET'])
+def remarks_mentor():
     if request.method=='POST':
-        marks_by_mentor=request.form['marks']
-        if len(marks_by_mentor)!=0:
-            database = MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
-            cursor = database.cursor()
-            db =MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
-            c=db.cursor()
-            c.execute("select teamname from accounts where username='{}'".format(session['username']))
-            teamname=c.fetchone()
-            for i in teamname:
-                cursor.execute("update team_manage set marks='{}' where teamname='{}'".format(marks_by_mentor,i))
-            database.commit()
-            return render_template("completed.html")
+        dba =MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
+        cura = dba.cursor()
+        cura.execute("select teamname from accounts where username='{}'".format(session['username']))
+        teamname=cura.fetchone()
+        print(teamname[0])
+        db =MySQLdb.connect(host="185.28.21.1", user="u320202036_mentor", password="Conzura9346@", database="u320202036_mentor", port=3306)
+        cur = db.cursor()
+        cur.execute("select remarks from project_files where teamname='{}'".format(teamname[0]))
 
+        remarks = cur.fetchone()
+        print(remarks[0])
+        return render_template('remarks.html',marks=remarks[0])
+
+
+@app.route('/homepage/join_team',methods=['POST','GET'])
+def join_team():
+    if request.method == "POST" and 'teamname' in request.form:
+
+        teamname=request.form['teamname']
+        teamcode=request.form['teamcode']
+
+        cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+        database = MySQLdb.connect(host="185.28.21.1", user="u320202036_student", password="Conzura9346@", database="u320202036_student", port=3306)
+        c = database.cursor()
+        c.execute("select project from team_manage where teamname='{}'".format(teamname))
+        proj = c.fetchone()
+
+
+
+        cursor.execute("select roll_no from accounts where username='{}'".format(session['username']))
+        roll_no=cursor.fetchone()
+	
+        cursor.execute("select branch from accounts where username='{}'".format(session['username']))
+        branch=cursor.fetchone()
+
+        cursor.execute("insert into {}(team_members,project,roll_no,branch) values('{}','{}','{}','{}')".format(teamname,session['username'],str(proj[0]),roll_no['roll_no'],branch['branch']))
+        cursor.execute("update accounts set team='yes' where username='{}'".format(session['username']))
+        cursor.execute("update accounts set teamname='{}' where username='{}'".format(teamname,session['username']))
+        cursor.execute("select teamname from accounts where username='{}'".format(session['username']))
+        mysql.connection.commit()
+        session['teamname']=teamname
+
+        return (team_view())
+    return render_template('no_team.html')
 @app.route('/account')
 def account():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("select username ,email ,password from accounts where username='{}'".format(session['username']))
-    data=cursor.fetchone()
-    return render_template('account.html',username=data['username'],email=data['email'],password=data['password'])
+
+    cursor.execute("select email from accounts where username='{}'".format(session['username']))
+    email=cursor.fetchone()
+    cursor.execute("select roll_no from accounts where username='{}'".format(session['username']))
+    roll_no=cursor.fetchone()
+    cursor.execute("select branch from accounts where username='{}'".format(session['username']))
+    branch=cursor.fetchone()
+    return render_template('account.html',branch=branch['branch'],roll_no=roll_no['roll_no'],username=session['username'],email=email["email"])
+    #return render_template('account.html')
 @app.route('/change_password',methods=['POST','GET'])
 def change_password():
 
@@ -381,13 +398,21 @@ def change_password():
     cursor.execute("update accounts set password='{}' where username='{}'".format(password,session['username']))
     mysql.connection.commit()
     return account()
+
 @app.route('/logout',methods=['POST','GET'])
 def logout():
+
+
     session.pop('username',None)
     session.pop('loggedin',None)
-    session.pop('mentor_team',None)
-    return login()
+    session.pop('teamname',None)
+    return render_template('year.html')
+
+
+
 if __name__ == '__main__':
-    app.debug=True
     app.secret_key='success'
+    app.debug=True
     app.run()
+
+
