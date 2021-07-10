@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <link rel="stylesheet" href="{{ url_for('static', filename='mentor_team.css')}}">
+        <title>Table</title>
+                                                                            <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
+
+    </head>
+
+
+    <style>
+    a{
+        background: rgba(249, 250, 250, 0.425);
+        color:white;
+        font-size:30px;
+        padding:15px;
+        float:left;
+        text-decoration:none;
+        transition:.5s;
+
+
+    }
+    a:hover{
+        background:white;
+        color:#ff2cdf80;
+
+
+
+
+    }
+        body{
+                background: white;
+
+}
+
+
+
+table{
+padding-bottom:30px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    transform: translate(10px,100px);
+    margin-left: 30px;
+
+}
+td{
+    height: 100px;
+    width:400px;
+    border:2px solid black;
+
+    }
+th{
+
+    height: 70px;
+    width:100px;
+    color:white;
+    background: rgba(5, 4, 4, 0.459);
+}
+
+    </style>
+
+
+    <body>
+     <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
+   SRIT-COMMUNITY SERVICE PROJECT--mentor team
+</marquee>
+    <img style="margin-left:30%" class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
+    <hr>
+
+
+     <button class="back" onclick="location.href = '{{url_for('home')}}'" style="text-align:right;padding:10px 20px;margin-left:10px">< Go Back</button>
+        <h1>project:<span style="color:red">{{project}}</span></h1>
+
+     <table>
+                <th>Team members</th><th>Roll No</th><th>Branch</th>
+
+                {%for user in table %}
+             <tr>
+                {% for data in user %}
+
+                <td>{{data}}</td>
+
+                {% endfor %}
+                 </tr>
+                {% endfor %}
+
+
+
+        </table>
+    </body>
+</html>

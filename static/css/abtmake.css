@@ -1,0 +1,44 @@
+/*
+Designed and Developed by Creative Crafts
+Created by Manoz 
+*/
+/* 
+    Created on : Jul 28, 2016, 2:55:18 PM
+    Author     : Manozz
+*/
+.cnt-abt{
+    margin: 0 auto;
+    padding-top: 20px; 
+}
+.cnt-abt-sec{
+    padding: 30px;
+    padding-top: 0px;
+    border-radius: 5px;
+}
+.cnt-abt-sec-head{
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 15px;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px #CCC;
+    background: linear-gradient(#FBA469, #FC8F45);
+    /*border: 1px solid #fff;*/
+    border-radius: 3px 3px 0 0;
+    font-family: 'Roboto Condensed', 'Lora', 'Open Sans';
+}
+.cnt-abt-sec-data{
+    padding: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    box-shadow: 0 0 10px #CCC;
+    border-top: none;
+    text-align: justify;
+}
+.cnt-abt-sec-data p{
+    font-size: 14px;
+    line-height: 22px;
+}
+.cnt-abt-sec-data i{
+    width: 16px;
+}

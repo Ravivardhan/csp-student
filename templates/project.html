@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+                            <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
+
+        <style>
+            .download{
+    padding: 20px;
+    transform: translate(500px,00px);
+    font-size: 30px;
+
+}
+.marks{
+    font-size:20px;
+    margin-bottom:0px;
+}
+.marks{
+text-align:center;
+align-items:center;
+padding:17px 10px;
+border:none;
+}
+.submit{
+transform:translate(-480px,240px);
+text-align:center;
+align-items:center;
+padding:15px;
+border:none;
+}
+.mark{
+     padding: 20px;
+    transform: translate(0px,00px);
+    font-size: 30px;
+    margin-left:600px;
+}
+form{
+    transform:translate(590px,130px);
+}
+.remarks{
+height:170px;
+width:350px;
+transform:translate(-270px,120px);
+}
+     </style>
+        <link rel="stylesheet" href="{{url_for('static',filename='project.css')}}">
+        <title>Project</title>
+    </head>
+    <body>
+    <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
+   SRIT-COMMUNITY SERVICE PROJECT--mentor account
+</marquee>
+    <img style="margin-left:30%" class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
+    <hr>
+    <button onclick="location.href = '{{url_for('home')}}'" style="text-align:right;padding:10px 20px;margin-left:20px">< Go Back</button>
+
+
+   <center> <h1>PROJECT SUBMITTED CLICK <a class="download" target="_blank" href="{{link}}">HERE</a> TO VIEW THE FILE!!!!</h1></center>
+
+
+
+
+<form method="post" action="{{url_for('final')}}">
+    <label >Grade:</label>
+<select style="background-color:white; color:orange" class="marks" name="marks">
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select>        <input name="remarks" class="remarks" placeholder="enter remarks here!">
+        <input class="submit" type="submit" value="Submit">
+</form>
+
+</body>
+</html>

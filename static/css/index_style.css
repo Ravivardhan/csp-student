@@ -1,0 +1,35 @@
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 100%;
+    margin: auto;
+}
+.modal-content{
+    border-radius: 0;
+    margin: 10px auto;
+    font-family: 'Mirza', cursive;
+}
+.modal-header{
+    background: #FF7110;
+    color: #fff;
+
+}
+.btn-srit-su, .btn-srit-re{
+    width: 100px;
+    border-radius: 0;
+    background: #FF7110;
+    border: 1px solid #ff7110;
+    color: #fff;
+}
+.btn-srit-re{
+    background: #fff;
+    color: #000;
+    width: 80px;
+}
+.form-control{
+    border-radius: 0;
+    padding: 20px auto;
+    border: 1px solid #ff7110;
+}
+placeholder{
+    color: #ff7110;
+}

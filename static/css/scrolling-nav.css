@@ -1,0 +1,157 @@
+/*!
+ * Start Bootstrap - Scrolling Nav (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 45px 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+    .top-nav-collapse {
+        padding: 30px;
+        padding-bottom: 40px;
+    }
+
+}
+
+/* Demo Sections - You can use these as guides or delete them - the scroller will work with any sort of height, fixed, undefined, or percentage based.
+The padding is very important to make sure the scrollspy picks up the right area when scrolled to. Adjust the margin and padding of sections and children
+of those sections to manage the look and feel of the site. */
+
+.intro-section {
+    /*padding-top: 172px;*/
+    text-align: center;
+    background: #fff;
+    border-bottom: 3px solid #ff7110;
+    z-index: 2;
+}
+
+.about-section {
+    width: 100%;
+    text-align: center;
+    background: url('../images/logo-backg.png') no-repeat ;
+    background-position: center;
+    background-position-y: 70%;
+    z-index: 3;
+}
+.academics-section {
+    width: 100%;
+    text-align: center;
+    background: url('../images/logo-backg.png') no-repeat ;
+    background-position: center;
+    background-attachment: fixed;
+    background-position-y: 70%;
+    z-index: 3;
+}
+.facilities-section{
+    width: 100%;
+    text-align: center;
+    background: #fff ;
+/*    background-position: center;
+    background-position-y: 70%;*/
+    z-index: 3;
+}
+.departments-section{
+    width: 100%;
+    text-align: center;
+    background: #fff ;
+    z-index: 3;
+}
+.placements-section{
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    z-index: 3;
+}
+.alumni-section{
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    z-index: 3;
+}
+.news-section{
+    width: 100%;
+    background: url('../images/logo-backg.png') no-repeat ;
+    background-position: center;
+    background-position-y: 70%;
+    z-index: 3;
+}
+.footer-section{
+    width: 100%;
+    height: 500px;
+    margin-top: 145px;
+    background: url('../images/foot-back.jpg') no-repeat ;
+    background-position: center;
+    z-index: 2;
+}
+.footer-section-mask{
+    background: rgba(36, 29, 41, 0.8);
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    border-bottom: 5px solid #ff7110;
+}
+.alumni-section-page{
+    height: 100%;
+    width: 100%;
+    padding-top: 155px;
+    text-align: center;
+    background: #fff;
+    z-index: 3;
+}
+@media (max-width: 768px){
+   .but-res{
+        top: 6.2em;
+        bottom: -30px;
+    }
+    .img-res{
+        margin-top: -2em;
+    }
+    .intro-section{
+        padding-top: 100px;
+    }
+    .intro-section, .about-section, .academics-section, .facilities-section, .departments-section, .placements-section, .alumni-section, .news-section, .footer-section{
+        height: auto;
+    }
+    /*.carousel {*/
+        /*top: 4em;*/
+    /*}*/
+    .footer-section{
+    width: 100%;
+    margin-top: 145px;
+    background: url('../images/foot-back.jpg') no-repeat ;
+    background-position: center;
+    z-index: 2;
+    }
+}
+@media (max-width: 708px){
+    .img-res{
+        margin-top: -5em;
+    }
+    .inn-img{
+    /*position: absolute;*/
+    /*top: 100%;*/
+    margin-left: 0%;
+    margin-right: 0%;
+    /*transform: translate(-50%, -50%);*/
+}
+.inn-img img{
+    height: 285px;
+    width: 100%;
+    display: block;
+}
+}

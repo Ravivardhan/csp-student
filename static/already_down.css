@@ -1,0 +1,33 @@
+body{
+            background: linear-gradient(100deg,#ff914c,#f5ce8c);
+}
+h1,h3{
+    transform: translate(200px,100px);
+    color: white;
+    font-size: 50px;
+    text-align: center;
+}
+nav{
+    float: right;
+
+}
+ul{
+
+}
+li{
+    display: inline-block;
+}
+a{
+    background-color: rgba(255, 255, 255, 0.199);
+    padding: 25px 40px;
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    transition: .5s;
+}
+a:hover{
+    background: white;
+    font-weight: 200;
+    color: black;
+}

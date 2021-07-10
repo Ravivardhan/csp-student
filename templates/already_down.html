@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+    body{
+                background: linear-gradient(100deg,#ffa200,#f5ce8c);
+}
+h1{
+    transform: translate(200px,100px);
+    color: white;
+    font-size: 50px;
+    text-align: center;
+}
+
+form{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    transform: translate(200px,300px);
+}
+
+nav{
+    float: right;
+
+}
+ul{
+
+}
+li{
+    display: inline-block;
+}
+a{
+    background-color: rgba(255, 255, 255, 0.199);
+    padding: 25px 40px;
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    transition: .5s;
+}
+a:hover{
+    background: white;
+    font-weight: 200;
+    color: black;
+}
+.marks{
+text-align:center;
+align-items:center;
+padding:15px;
+border:none;
+}
+.submit{
+text-align:center;
+align-items:center;
+padding:15px;
+border:none;
+}
+
+
+</style>
+    <head>
+        <link rel="stylesheet" href="{{url_for('static',filename='downloaded.css')}}">
+        <title>Project</title>
+    </head>
+    <body>
+
+        <nav>
+            <ul>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('team_verify')}}">Team</a></li>
+
+            </ul>
+        </nav>
+<form method="post" class="form" action="{{url_for('marks')}}">
+   <input name="marks" class="marks" placeholder="Enter marks to continue">
+    <button type="submit" class="submit">Submit</button>
+</form>
+</body>
+</html>
