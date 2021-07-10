@@ -166,27 +166,3 @@ nav h3{
     filter: blur(20px);
 
 }
-.navbar-default .navbar-nav > li > a {
-    color: #000;
-    font-weight: 500;
-    font-family: 'Mirza', cursive;
-    font-size: 17px;
-}
-.navbar-default .navbar-nav > li > a {
-    color: #777;
-}
-.navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-.navbar-nav > li > a {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    line-height: 20px;
-}
-.nav > li > a {
-    position: relative;
-    display: block;
-    padding: 10px 15px;
-        padding-top: 10px;
-        padding-bottom: 10px;
