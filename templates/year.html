@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>SRIT - Srinivasa Ramanujan Institute of Technology</title>
+    <link href="https://fonts.googleapis.com/css?family=Mirza|Roboto+Condensed|Dosis" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="http://www.srit.ac.in/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
+    <link rel="stylesheet" href="http://www.srit.ac.in/css/font-awesome.css" />
+    <!-- Custom CSS -->
+    <link href="http://www.srit.ac.in/css/scrolling-nav.css" rel="stylesheet" />
+    <!-- CSS Added by Pruthvi -->
+    <link href="http://www.srit.ac.in/css/style.css" rel="stylesheet" />
+    <link href="http://www.srit.ac.in/css/index_style.css" rel="stylesheet" />
+    <link href="http://www.srit.ac.in/  css/lightbox.min.css" rel="stylesheet"  />
+        <link href="{{url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main_style.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/font-awesome.css')}}" />
+    <!-- Custom CSS -->
+    <link href="{{url_for('static',filename='css/crolling-nav.css')}}" rel="stylesheet" />
+    <!-- CSS Added by Pruthvi -->
+    <link href="{{url_for('static',filename='css/style.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='css/index_style.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='css/lightbox.min.css')}}" rel="stylesheet"  />
+        <link rel="stylesheet" href="{{url_for('static',filename='year.css')}}">
+    </head>
+
+
+
+
+
+<style>.sec_head{
+text-align: center;
+font-size: 22px;
+background: #FF7110;
+padding: 10px;
+margin: 0 auto;
+color: #FFF;
+font-family: 'Roboto Condensed', sans-serif;
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+width: 100%;
+position: relative;
+}</style>
+
+    <body>
+
+    <center>
+        <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
+   SRIT-COMMUNITY SERVICE PROJECT
+</marquee>
+    <img class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
+    <hr>
+        <form action="{{url_for('year')}}" method="POST">
+
+            <label for="student-year">choose your year:</label>
+
+        <select name="student-year" id="student-year">
+          <option value="1">I</option>
+          <option value="2">II</option>
+          <option value="3">III</option>
+          <option value="4">IV</option>
+        </select> 
+        <input type="submit" name="year" value="submit" class="year" id="year">
+        </form>
+        
+    </body>
+</html>

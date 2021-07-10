@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .here{
+        padding:10px 40px;
+    }.sec_head{
+text-align: center;
+font-size: 22px;
+background: #FF7110;
+padding: 10px;
+margin: 0 auto;
+color: #FFF;
+font-family: 'Roboto Condensed', sans-serif;
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+width: 100%;
+position: relative;
+}
+</style>
+
+    <head>
+                                                            <link rel="stylesheet" href="http://www.srit.ac.in/css/main_style.css" />
+
+        <link rel="stylesheet" href="{{url_for('static',filename='marks.css')}}">
+        <title>Marks</title>
+    </head>
+    <body>
+     <marquee class="sec_head" attribute_name = "attribute_value"....more attributes>
+   SRIT-COMMUNITY SERVICE PROJECT--student account
+</marquee>
+    <img style="margin-left:30%" class="img img-responsive" id="mainBannerLogo" src="http://www.srit.ac.in/images/logo-autonomous-new4.jpg" alt="Srinivasa Ramanujan Institute of Technology"></center>
+    <hr>
+                  <button class="back" onclick="location.href = '{{url_for('homepage')}}'" style="text-align:right;padding:10px 20px;margin-left:10px">< Go Back</button>
+
+   <h1>YOUR PROJECT HAS BEEN AWARDED WITH GRADE<span style="color:red"> {{marks}}</span> by {{mentor}}</h1>
+<form method="post" action="{{url_for('remarks_mentor')}}">
+    <h1>click <input class="here" type="submit" value="here">   to view remarks by mentor</h1>
+</form>
+    </body>
+</html>
